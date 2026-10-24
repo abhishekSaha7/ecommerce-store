@@ -14,7 +14,7 @@ export const PRODUCTS_DATA: Product[] = [
     tags: ["living", "seating", "wood", "boucle", "bestseller"],
     images: [
       "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1580481072645-022f9a6d1270?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?auto=format&fit=crop&w=1200&q=85",
       "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1200&q=85",
     ],
     rating: 4.9,

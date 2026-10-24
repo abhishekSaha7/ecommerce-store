@@ -222,7 +222,7 @@ export default function HomePage() {
 
           <div className="relative aspect-square lg:aspect-auto lg:h-full lg:col-span-6 bg-muted">
             <Image
-              src="https://images.unsplash.com/photo-1580481072645-022f9a6d1270?auto=format&fit=crop&w=1200&q=85"
+              src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?auto=format&fit=crop&w=1200&q=85"
               alt="Sculpted chair detail"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"

@@ -1,23 +1,22 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CartItem, CartState } from "@/types/cart";
+import { CartState } from "@/types/cart";
 import { Product } from "@/types/product";
 import { PROMO_CODES } from "@/lib/constants";
-import { loadFromLocalStorage, saveToLocalStorage } from "@/lib/store/storage";
 
-const CART_STORAGE_KEY = "nova_cart_v1";
-
-const initialCartState: CartState = {
+// Static initial state: must be identical on the server and on the client's first
+// render to avoid hydration mismatches. Persisted data is loaded after mount via hydrateCart.
+const initialState: CartState = {
   items: [],
   promoCode: null,
   discountPercentage: 0,
 };
 
-const initialState: CartState = loadFromLocalStorage<CartState>(CART_STORAGE_KEY, initialCartState);
-
 export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
+    hydrateCart: (_state, action: PayloadAction<CartState>) => action.payload,
+
     addToCart: (
       state,
       action: PayloadAction<{
@@ -46,8 +45,6 @@ export const cartSlice = createSlice({
           selectedSize,
         });
       }
-
-      saveToLocalStorage(CART_STORAGE_KEY, state);
     },
 
     removeFromCart: (
@@ -63,8 +60,6 @@ export const cartSlice = createSlice({
             item.selectedSize === selectedSize
           )
       );
-
-      saveToLocalStorage(CART_STORAGE_KEY, state);
     },
 
     updateQuantity: (
@@ -97,8 +92,6 @@ export const cartSlice = createSlice({
           item.quantity = quantity;
         }
       }
-
-      saveToLocalStorage(CART_STORAGE_KEY, state);
     },
 
     applyPromoCode: (state, action: PayloadAction<string>) => {
@@ -107,25 +100,23 @@ export const cartSlice = createSlice({
         state.promoCode = code;
         state.discountPercentage = PROMO_CODES[code];
       }
-      saveToLocalStorage(CART_STORAGE_KEY, state);
     },
 
     removePromoCode: (state) => {
       state.promoCode = null;
       state.discountPercentage = 0;
-      saveToLocalStorage(CART_STORAGE_KEY, state);
     },
 
     clearCart: (state) => {
       state.items = [];
       state.promoCode = null;
       state.discountPercentage = 0;
-      saveToLocalStorage(CART_STORAGE_KEY, state);
     },
   },
 });
 
 export const {
+  hydrateCart,
   addToCart,
   removeFromCart,
   updateQuantity,

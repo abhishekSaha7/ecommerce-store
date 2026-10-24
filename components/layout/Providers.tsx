@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { Toaster } from "sonner";
 import { makeStore, AppStore } from "@/lib/store/store";
+import { StorePersistence } from "@/lib/store/StorePersistence";
 
 interface ProvidersProps {
   children: ReactNode;
@@ -33,6 +34,7 @@ export default function Providers({ children }: ProvidersProps) {
 
   return (
     <Provider store={storeRef.current}>
+      <StorePersistence />
       <QueryClientProvider client={queryClient}>
         <NextThemesProvider attribute="class" defaultTheme="system" enableSystem>
           {children}
